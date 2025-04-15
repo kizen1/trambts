@@ -3,7 +3,7 @@ import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Link } from '@tanstack/react-router'
-import { IconBrandFacebook, IconBrandGithub } from '@tabler/icons-react'
+import { IconBrandFacebook, IconBrandGmail } from '@tabler/icons-react'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import {
@@ -94,9 +94,12 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                 </FormItem>
               )}
             />
-            <Button className='mt-2' disabled={isLoading}>
-              Login
-            </Button>
+            <Link to='/'>
+              <Button className='mt-2 w-full'>
+                {/* <Button className='mt-2' disabled={isLoading}> */}
+                Login
+              </Button>
+            </Link>
 
             <div className='relative my-2'>
               <div className='absolute inset-0 flex items-center'>
@@ -116,7 +119,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                 type='button'
                 disabled={isLoading}
               >
-                <IconBrandGithub className='h-4 w-4' /> GitHub
+                <IconBrandGmail className='h-4 w-4' /> Gmail
               </Button>
               <Button
                 variant='outline'

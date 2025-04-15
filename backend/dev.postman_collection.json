@@ -1,0 +1,210 @@
+{
+  "info": {
+    "_postman_id": "1234abcd-5678-90ef-ghij-klmnopqrstuv",
+    "name": "Stations Management API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Get All Stations",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:3000/api/stations",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "stations"]
+        }
+      }
+    },
+    {
+      "name": "Get Station by ID",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:3000/api/stations/:id",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "stations", ":id"],
+          "variable": [
+            {
+              "key": "id",
+              "value": "STATION_ID_HERE"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Create Station",
+      "request": {
+        "method": "POST",
+        "url": {
+          "raw": "http://localhost:3000/api/stations",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "stations"]
+        },
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "maTram",
+              "value": "TRAM001",
+              "type": "text"
+            },
+            {
+              "key": "diaChi",
+              "value": "123 Example Street",
+              "type": "text"
+            },
+            {
+              "key": "maKhoa",
+              "value": "MK001",
+              "type": "text"
+            },
+            {
+              "key": "sdt",
+              "value": "0123456789",
+              "type": "text"
+            },
+            {
+              "key": "thongTinCap",
+              "value": "Supply info example",
+              "type": "text"
+            },
+            {
+              "key": "ghiChu",
+              "value": "Notes example",
+              "type": "text"
+            },
+            {
+              "key": "tramCo",
+              "value": "[\"2G\", \"3G\"]",
+              "type": "text"
+            },
+            {
+              "key": "loaiTru",
+              "value": "tuDien",
+              "type": "text"
+            },
+            {
+              "key": "chuDauTu",
+              "value": "viettel",
+              "type": "text"
+            },
+            {
+              "key": "phongMay",
+              "value": "shelter",
+              "type": "text"
+            },
+            {
+              "key": "maPE",
+              "value": "PE001",
+              "type": "text"
+            },
+            {
+              "key": "toaDo",
+              "value": "10.123,106.456",
+              "type": "text"
+            },
+            {
+              "key": "hinhAnh",
+              "type": "file",
+              "src": []
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Update Station",
+      "request": {
+        "method": "PUT",
+        "url": {
+          "raw": "http://localhost:3000/api/stations/:id",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "stations", ":id"],
+          "variable": [
+            {
+              "key": "id",
+              "value": "STATION_ID_HERE"
+            }
+          ]
+        },
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "maTram",
+              "value": "UPDATED001",
+              "type": "text"
+            },
+            {
+              "key": "ghiChu",
+              "value": "Updated notes",
+              "type": "text"
+            },
+            {
+              "key": "keepExistingImages",
+              "value": "true",
+              "type": "text"
+            },
+            {
+              "key": "hinhAnh",
+              "type": "file",
+              "src": []
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Delete Station",
+      "request": {
+        "method": "DELETE",
+        "url": {
+          "raw": "http://localhost:3000/api/stations/:id",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "stations", ":id"],
+          "variable": [
+            {
+              "key": "id",
+              "value": "STATION_ID_HERE"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Delete Station Image",
+      "request": {
+        "method": "DELETE",
+        "url": {
+          "raw": "http://localhost:3000/api/stations/:id/images/:filename",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "stations", ":id", "images", ":filename"],
+          "variable": [
+            {
+              "key": "id",
+              "value": "STATION_ID_HERE"
+            },
+            {
+              "key": "filename",
+              "value": "IMAGE_FILENAME_HERE"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

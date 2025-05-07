@@ -1,6 +1,7 @@
 import {
   IconCash,
   IconShield,
+  IconCellSignal5,
   IconUsersGroup,
   IconUserShield,
 } from '@tabler/icons-react'
@@ -22,7 +23,7 @@ export const loaiTruTypes = [
   {
     label: 'Monopol',
     value: 'monopol',
-    icon: IconShield,
+    icon: IconCellSignal5,
   },
   {
     label: 'Dây co',

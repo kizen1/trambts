@@ -48,6 +48,7 @@ export const createStation = async (req, res) => {
     const newStation = {
       id: uuidv4(),
       maTram: req.body.maTram || "",
+      nhanVienQuanLy: req.body.nhanVienQuanLy || "",
       diaChi: req.body.diaChi || "",
       maKhoa: req.body.maKhoa || "",
       sdt: req.body.sdt || "",
@@ -113,6 +114,7 @@ export const updateStation = async (req, res) => {
     const updatedStation = {
       ...stations[stationIndex],
       maTram: req.body.maTram || stations[stationIndex].maTram,
+      nhanVienQuanLy: req.body.nhanVienQuanLy || stations[stationIndex].nhanVienQuanLy,
       diaChi: req.body.diaChi || stations[stationIndex].diaChi,
       maKhoa: req.body.maKhoa || stations[stationIndex].maKhoa,
       sdt: req.body.sdt || stations[stationIndex].sdt,

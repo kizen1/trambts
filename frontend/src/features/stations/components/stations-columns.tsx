@@ -51,6 +51,16 @@ export const columns: ColumnDef<Station>[] = [
     enableHiding: false,
   },
   {
+    id: 'nhanVienQuanLy',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title='Nhân viên quản lý' />
+    ),
+    cell: ({ row }) => {
+      return <LongText className='max-w-36'>{row.original.diaChi}</LongText>
+    },
+    meta: { className: 'w-36' },
+  },
+  {
     id: 'diaChi',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title='Địa chỉ' />
@@ -242,46 +252,43 @@ export const columns: ColumnDef<Station>[] = [
     ),
     cell: ({ row }) => {
       const { hinhAnh } = row.original
-
+      const [selectedImage, setSelectedImage] = useState<string | null>(null)
+  
       return (
-        <div className='grid w-48 grid-cols-3 gap-2'>
-          {hinhAnh.map((item, index) => {
-            const [selectedImage, setSelectedImage] = useState<string | null>(
-              null
-            )
-
-            return (
-              <Dialog
-                key={index}
-                onOpenChange={(open) => !open && setSelectedImage(null)}
-              >
-                <DialogTrigger asChild>
-                  <img
-                    src={item.path}
-                    alt={`Image ${index}`}
-                    className='h-14 w-14 cursor-pointer rounded object-cover hover:opacity-50'
-                    onClick={() => setSelectedImage(item.path)}
-                  />
-                </DialogTrigger>
-                <DialogContent className='w-max p-0'>
-                  <VisuallyHidden>
-                    <DialogTitle>Ảnh trạm</DialogTitle>
-                    <DialogDescription>{item.filename}</DialogDescription>
-                  </VisuallyHidden>
-                  {selectedImage && (
-                    <img
-                      src={selectedImage}
-                      alt={selectedImage}
-                      className='max-h-screen rounded'
-                    />
-                  )}
-                </DialogContent>
-              </Dialog>
-            )
-          })}
-        </div>
+        <Dialog onOpenChange={(open) => !open && setSelectedImage(null)}>
+          <div className='grid w-48 grid-cols-3 gap-2'>
+            {hinhAnh.map((item, index) => (
+              <DialogTrigger asChild key={index}>
+                <img
+                  src={item.path}
+                  alt={`Image ${index}`}
+                  className='h-14 w-14 cursor-pointer rounded object-cover hover:opacity-50'
+                  onClick={() => setSelectedImage(item.path)}
+                />
+              </DialogTrigger>
+            ))}
+          </div>
+          <DialogContent className='w-max p-0'>
+            <VisuallyHidden>
+              <DialogTitle>Ảnh trạm</DialogTitle>
+              <DialogDescription>
+                {
+                  hinhAnh.find((item) => item.path === selectedImage)
+                    ?.filename ?? ''
+                }
+              </DialogDescription>
+            </VisuallyHidden>
+            {selectedImage && (
+              <img
+                src={selectedImage}
+                alt={selectedImage}
+                className='max-h-screen rounded'
+              />
+            )}
+          </DialogContent>
+        </Dialog>
       )
     },
     meta: { className: 'min-w-36' },
-  },
+  }
 ]

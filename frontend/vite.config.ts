@@ -23,13 +23,13 @@ export default defineConfig({
       '@tabler/icons-react': '@tabler/icons-react/dist/esm/icons/index.mjs',
     },
   },
-  server: {
-    host: true,
-    proxy: {
-      '/api': {
-        target: 'http://192.168.1.2:3000',
-        changeOrigin: true,
-      },
-    },
-  },
+  // server: {
+  //   host: true,
+  //   proxy: {
+  //     '/api': {
+  //       target: 'http://localhost:3000',
+  //       changeOrigin: true,
+  //     },
+  //   },
+  // },
 })

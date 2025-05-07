@@ -17,6 +17,7 @@ export async function createTestStation() {
 
     // Add text fields
     formData.append("maTram", "TEST001");
+    formData.append("nhanVienQuanLy", "TEST001");
     formData.append("diaChi", "123 Test Street, Test City");
     formData.append("maKhoa", "MK001");
     formData.append("sdt", "0987654321");

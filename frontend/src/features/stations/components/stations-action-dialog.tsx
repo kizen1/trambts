@@ -158,6 +158,19 @@ export function StationsActionDialog({
               />
               <FormField
                 control={form.control}
+                name='nhanVienQuanLy'
+                render={({ field }) => (
+                  <FormItem className='items-center space-y-0 gap-x-4 gap-y-1'>
+                    <FormLabel>Nhân viên quản lý</FormLabel>
+                    <FormControl>
+                      <Input placeholder='' {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
                 name='diaChi'
                 render={({ field }) => (
                   <FormItem className='space-y-0 gap-x-4 gap-y-1'>

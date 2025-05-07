@@ -3,6 +3,7 @@ type tramCoType = ['2G', '3G', '4G', '5G']
 export interface Station {
   id: string
   maTram: string
+  nhanVienQuanLy: string
   diaChi: string
   maKhoa: string
   sdt: string

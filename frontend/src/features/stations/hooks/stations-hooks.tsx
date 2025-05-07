@@ -87,9 +87,9 @@ export function useDeleteStationImage(stationId: string) {
       // Invalidate the specific station to refetch with updated images
       queryClient.invalidateQueries({ queryKey: stationKeys.all })
       queryClient.setQueryData(stationKeys.details(stationId), updatedStation)
-      // queryClient.invalidateQueries({
-      //   queryKey: stationKeys.details(stationId),
-      // })
+      queryClient.invalidateQueries({
+        queryKey: stationKeys.details(stationId),
+      })
       toast.success('Image deleted successfully!')
     },
   })

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden'
+import { Link } from '@tanstack/react-router'
 import { ColumnDef } from '@tanstack/react-table'
 import { cn } from '@/lib/utils'
 import { Badge } from '@/components/ui/badge'
@@ -11,6 +12,7 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog'
 import LongText from '@/components/long-text'
+import { useStationContext } from '../context/stations-context'
 import {
   chuDauTuTypes,
   loaiTruTypes,
@@ -23,42 +25,48 @@ import { DataTableRowActions } from './data-table-row-actions'
 
 export const columns: ColumnDef<Station>[] = [
   {
-    id: 'actions',
-    cell: DataTableRowActions,
-    meta: {
-      className: cn(
-        'drop-shadow-[0_1px_2px_rgb(0_0_0_/_0.1)] dark:drop-shadow-[0_1px_2px_rgb(255_255_255_/_0.1)] lg:drop-shadow-none',
-        'bg-background transition-colors duration-200 group-hover/row:bg-muted group-data-[state=selected]/row:bg-muted',
-        'sticky left-0 md:table-cell'
-      ),
-    },
-  },
-  {
     accessorKey: 'maTram',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title='Mã Trạm' />
     ),
-    cell: ({ row }) => (
-      <LongText className='max-w-36'>{row.getValue('maTram')}</LongText>
-    ),
+    cell: ({ row }) => {
+      const { setOpen, setCurrentRow } = useStationContext()
+
+      return (
+        <div
+          onClick={() => {
+            setCurrentRow(row.original)
+            setOpen('edit')
+          }}
+        >
+          <LongText className='max-w-36'>{row.getValue('maTram')}</LongText>
+        </div>
+      )
+    },
     meta: {
       className: cn(
         'drop-shadow-[0_1px_2px_rgb(0_0_0_/_0.1)] dark:drop-shadow-[0_1px_2px_rgb(255_255_255_/_0.1)] lg:drop-shadow-none',
         'bg-background transition-colors duration-200 group-hover/row:bg-muted group-data-[state=selected]/row:bg-muted',
-        'sticky left-12 md:table-cell'
+        'sticky left-0 md:table-cell cursor-pointer'
       ),
     },
     enableHiding: false,
   },
   {
+    accessorKey: 'nhanVienQuanLy',
     id: 'nhanVienQuanLy',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title='Nhân viên quản lý' />
     ),
     cell: ({ row }) => {
-      return <LongText className='max-w-36'>{row.original.diaChi}</LongText>
+      return (
+        <LongText className='max-w-36'>
+          {row.getValue('nhanVienQuanLy')}
+        </LongText>
+      )
     },
     meta: { className: 'w-36' },
+    enableSorting: false,
   },
   {
     id: 'diaChi',
@@ -241,7 +249,13 @@ export const columns: ColumnDef<Station>[] = [
       <DataTableColumnHeader column={column} title='Tọa độ' />
     ),
     cell: ({ row }) => {
-      return <LongText className='max-w-36'>{row.original.toaDo}</LongText>
+      return (
+        <LongText className='max-w-36'>
+          <Link to={row.original.toaDo} target='_blank'>
+            {row.original.toaDo}
+          </Link>
+        </LongText>
+      )
     },
     meta: { className: 'w-36' },
   },
@@ -253,7 +267,7 @@ export const columns: ColumnDef<Station>[] = [
     cell: ({ row }) => {
       const { hinhAnh } = row.original
       const [selectedImage, setSelectedImage] = useState<string | null>(null)
-  
+
       return (
         <Dialog onOpenChange={(open) => !open && setSelectedImage(null)}>
           <div className='grid w-48 grid-cols-3 gap-2'>
@@ -272,10 +286,8 @@ export const columns: ColumnDef<Station>[] = [
             <VisuallyHidden>
               <DialogTitle>Ảnh trạm</DialogTitle>
               <DialogDescription>
-                {
-                  hinhAnh.find((item) => item.path === selectedImage)
-                    ?.filename ?? ''
-                }
+                {hinhAnh.find((item) => item.path === selectedImage)
+                  ?.filename ?? ''}
               </DialogDescription>
             </VisuallyHidden>
             {selectedImage && (
@@ -290,5 +302,27 @@ export const columns: ColumnDef<Station>[] = [
       )
     },
     meta: { className: 'min-w-36' },
-  }
+  },
+  {
+    id: 'actions',
+    cell: DataTableRowActions,
+    meta: {
+      className: cn(
+        'drop-shadow-[0_1px_2px_rgb(0_0_0_/_0.1)] dark:drop-shadow-[0_1px_2px_rgb(255_255_255_/_0.1)] lg:drop-shadow-none',
+        'bg-background transition-colors duration-200 group-hover/row:bg-muted group-data-[state=selected]/row:bg-muted',
+        'sticky left-0 md:table-cell'
+      ),
+    },
+  },
+  // {
+  //   id: 'actions',
+  //   cell: DataTableRowActions,
+  //   meta: {
+  //     className: cn(
+  //       'drop-shadow-[0_1px_2px_rgb(0_0_0_/_0.1)] dark:drop-shadow-[0_1px_2px_rgb(255_255_255_/_0.1)] lg:drop-shadow-none',
+  //       'bg-background transition-colors duration-200 group-hover/row:bg-muted group-data-[state=selected]/row:bg-muted',
+  //       'sticky left-0 md:table-cell'
+  //     ),
+  //   },
+  // },
 ]

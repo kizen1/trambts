@@ -21,7 +21,20 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
   const { setOpen, setCurrentRow } = useStationContext()
   return (
     <>
-      <DropdownMenu modal={false}>
+      <Button
+        onClick={() => {
+          setCurrentRow(row.original)
+          setOpen('delete')
+        }}
+        className='bg-destructive/10 dark:bg-destructive/50 text-destructive dark:text-primary'
+      >
+        Delete
+        <DropdownMenuShortcut>
+          <IconTrash size={16} className='text-destructive dark:text-primary' />
+        </DropdownMenuShortcut>
+      </Button>
+
+      {/* <DropdownMenu modal={false}>
         <DropdownMenuTrigger asChild>
           <Button
             variant='ghost'
@@ -57,7 +70,7 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
             </DropdownMenuShortcut>
           </DropdownMenuItem>
         </DropdownMenuContent>
-      </DropdownMenu>
+      </DropdownMenu> */}
     </>
   )
 }

@@ -16,7 +16,8 @@ export default function SignIn() {
         <CardHeader>
           <CardTitle className='text-lg tracking-tight'>Login</CardTitle>
           <CardDescription>
-            Enter your email and password below to <br />
+            Enter your email and password below to{' '}
+            <br className='hidden sm:block' />
             log into your account
           </CardDescription>
         </CardHeader>

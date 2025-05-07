@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useLayoutEffect, useState } from 'react'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden'
@@ -44,13 +44,21 @@ import {
 
 const formSchema = z.object({
   maTram: z.string().min(1, { message: 'Mã Trạm không được trống.' }),
+  nhanVienQuanLy: z
+    .string()
+    .min(1, { message: 'Nhân viên quản lý không được trống.' }),
   diaChi: z.string().min(1, { message: 'Địa chỉ không được trống.' }),
   maKhoa: z.string().min(1, { message: 'Mã khóa không được trống.' }),
-  sdt: z.string().min(1, { message: 'Số điện thoại không được trống.' }),
+  sdt: z
+    .string()
+    .min(1, { message: 'Số điện thoại không được trống.' })
+    .regex(/^0\d{9}$/, {
+      message: 'Số điện thoại phải bắt đầu bằng 0 và có 10 chữ số.',
+    }),
   thongTinCap: z
     .string()
     .min(1, { message: 'Thông tin cáp không được trống.' }),
-  ghiChu: z.string().min(1, { message: 'Ghi chú không được trống.' }),
+  ghiChu: z.string(),
   tramCo: z.array(z.string()).refine((value) => value.some((item) => item), {
     message: 'Vui lòng chọn ít nhất sóng trạm.',
   }),
@@ -58,7 +66,10 @@ const formSchema = z.object({
   chuDauTu: z.string().min(1, { message: 'Chủ đầu tư không được trống.' }),
   phongMay: z.string().min(1, { message: 'Phòng máy không được trống.' }),
   maPE: z.string().min(1, { message: 'Mã PE không được trống.' }),
-  toaDo: z.string().min(1, { message: 'Tọa độ không được trống.' }),
+  toaDo: z
+    .string()
+    .min(1, { message: 'Tọa độ không được trống.' })
+    .url({ message: 'Tọa độ phải là một đường dẫn hợp lệ.' }),
   hinhAnh: z.any(),
   isEdit: z.boolean(),
 })
@@ -77,6 +88,8 @@ export function StationsActionDialog({
 }: Props) {
   const isEdit = !!currentRow
   const [selectedImage, setSelectedImage] = useState<string | null>(null)
+  const [images, setImages] = useState(currentRow?.hinhAnh ?? [])
+
   // Mutations
   const createStation = useCreateStation()
   const updateStation = isEdit ? useUpdateStation(currentRow?.id) : null
@@ -92,6 +105,7 @@ export function StationsActionDialog({
         }
       : {
           maTram: '',
+          nhanVienQuanLy: '',
           diaChi: '',
           maKhoa: '',
           sdt: '',
@@ -119,6 +133,10 @@ export function StationsActionDialog({
     // showSubmittedData(values)
     onOpenChange(false)
   }
+
+  useLayoutEffect(() => {
+    setImages(currentRow?.hinhAnh ?? [])
+  }, [currentRow])
 
   return (
     <Dialog
@@ -352,9 +370,16 @@ export function StationsActionDialog({
                 render={({ field }) => (
                   <FormItem className='space-y-0 gap-x-4 gap-y-1'>
                     <FormLabel>Tọa độ</FormLabel>
-                    <FormControl>
-                      <Input placeholder='' {...field} />
-                    </FormControl>
+                    <div className='flex items-center gap-2'>
+                      <FormControl>
+                        <Input placeholder='' {...field} />
+                      </FormControl>
+                      <Button type='button' asChild>
+                        <a href={currentRow?.toaDo} target='_blank'>
+                          Truy cập
+                        </a>
+                      </Button>
+                    </div>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -371,9 +396,9 @@ export function StationsActionDialog({
                     />
                     {isEdit && (
                       <div className='grid grid-cols-3 gap-2'>
-                        {currentRow.hinhAnh.map((image, index) => (
+                        {images.map(({ filename, path }, index) => (
                           <Dialog
-                            key={image.filename}
+                            key={filename}
                             onOpenChange={(open) =>
                               !open && setSelectedImage(null)
                             }
@@ -381,16 +406,24 @@ export function StationsActionDialog({
                             <DialogTrigger asChild>
                               <div className='relative'>
                                 <img
-                                  src={image.path}
+                                  src={path}
                                   alt={`Image ${index}`}
                                   className='h-20 w-full cursor-pointer rounded object-cover hover:opacity-50 lg:h-32'
-                                  onClick={() => setSelectedImage(image.path)}
+                                  onClick={() => setSelectedImage(path)}
                                 />
                                 <div
                                   className="bg-accent hover:text-muted-foreground absolute top-1 right-1 cursor-pointer rounded-full p-1 opacity-70 transition-opacity hover:opacity-100 [&_svg:not([class*='size-'])]:size-4"
                                   onClick={() => {
-                                    if (image.filename) {
-                                      deleteImage.mutate(image.filename)
+                                    if (filename) {
+                                      deleteImage.mutate(filename, {
+                                        onSuccess: () => {
+                                          setImages((prev) =>
+                                            prev.filter(
+                                              (img) => img.filename !== filename
+                                            )
+                                          )
+                                        },
+                                      })
                                     }
                                   }}
                                 >
@@ -403,7 +436,7 @@ export function StationsActionDialog({
                               <VisuallyHidden>
                                 <DialogTitle>Ảnh trạm</DialogTitle>
                                 <DialogDescription>
-                                  {image.filename}
+                                  {filename}
                                 </DialogDescription>
                               </VisuallyHidden>
                               {selectedImage && (

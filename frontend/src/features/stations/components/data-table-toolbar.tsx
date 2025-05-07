@@ -18,27 +18,32 @@ export function DataTableToolbar<TData>({
   return (
     <div className='flex items-center justify-between'>
       <div className='flex flex-1 flex-col-reverse items-start gap-y-2 sm:flex-row sm:items-center sm:space-x-2'>
-        <Input
-          placeholder='Tìm trạm...'
-          value={(table.getColumn('maTram')?.getFilterValue() as string) ?? ''}
-          onChange={(event) =>
-            table.getColumn('maTram')?.setFilterValue(event.target.value)
-          }
-          className='h-8 w-[150px] lg:w-[250px]'
-        />
+        <div className='grid gap-2'>
+          <Input
+            placeholder='Tìm trạm...'
+            value={
+              (table.getColumn('maTram')?.getFilterValue() as string) ?? ''
+            }
+            onChange={(event) =>
+              table.getColumn('maTram')?.setFilterValue(event.target.value)
+            }
+            className='h-8 w-full lg:w-[250px]'
+          />
+          <Input
+            placeholder='Tìm nhân viên quản lý...'
+            value={
+              (table.getColumn('nhanVienQuanLy')?.getFilterValue() as string) ??
+              ''
+            }
+            onChange={(event) =>
+              table
+                .getColumn('nhanVienQuanLy')
+                ?.setFilterValue(event.target.value)
+            }
+            className='h-8 w-full lg:w-[250px]'
+          />
+        </div>
         <div className='flex flex-wrap gap-3'>
-          {table.getColumn('tramCo') && (
-            <DataTableFacetedFilter
-              column={table.getColumn('tramCo')}
-              title='Trạm có'
-              options={[
-                { label: '2G', value: '2G' },
-                { label: '3G', value: '3G' },
-                { label: '4G', value: '4G' },
-                { label: '5G', value: '5G' },
-              ]}
-            />
-          )}
           {table.getColumn('loaiTru') && (
             <DataTableFacetedFilter
               column={table.getColumn('loaiTru')}

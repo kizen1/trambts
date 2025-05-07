@@ -26,9 +26,10 @@ export function DataTablePagination<TData>({
       className='flex items-center justify-between overflow-clip px-2'
       style={{ overflowClipMargin: 1 }}
     >
-      <div className='text-muted-foreground hidden flex-1 text-sm sm:block'>
-        {table.getFilteredSelectedRowModel().rows.length} of{' '}
-        {table.getFilteredRowModel().rows.length} row(s) selected.
+      <div className='text-muted-foreground flex-1 text-sm'>
+        {/* {table.getFilteredSelectedRowModel().rows.length} of{' '}
+        {table.getFilteredRowModel().rows.length} row(s) selected. */}
+        Tổng <br /> {table.getFilteredRowModel().rows.length} trạm
       </div>
       <div className='flex items-center sm:space-x-6 lg:space-x-8'>
         <div className='flex items-center space-x-2'>

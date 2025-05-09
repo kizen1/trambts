@@ -30,14 +30,14 @@ export function DataTableToolbar<TData>({
             className='h-8 w-full lg:w-[250px]'
           />
           <Input
-            placeholder='Tìm nhân viên quản lý...'
+            placeholder='Tìm thông tin cáp...'
             value={
-              (table.getColumn('nhanVienQuanLy')?.getFilterValue() as string) ??
+              (table.getColumn('thongTinCap')?.getFilterValue() as string) ??
               ''
             }
             onChange={(event) =>
               table
-                .getColumn('nhanVienQuanLy')
+                .getColumn('thongTinCap')
                 ?.setFilterValue(event.target.value)
             }
             className='h-8 w-full lg:w-[250px]'

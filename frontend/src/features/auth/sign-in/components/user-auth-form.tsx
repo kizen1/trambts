@@ -94,7 +94,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
             </FormItem>
           )}
         />
-        <Link to='/'>
+        <Link to='/stations'>
           <Button className='mt-2 w-full'>
             {/* <Button className='mt-2' disabled={isLoading}> */}
             Login

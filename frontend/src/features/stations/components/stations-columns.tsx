@@ -53,7 +53,6 @@ export const columns: ColumnDef<Station>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: 'nhanVienQuanLy',
     id: 'nhanVienQuanLy',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title='Nhân viên quản lý' />
@@ -97,6 +96,7 @@ export const columns: ColumnDef<Station>[] = [
     enableSorting: false,
   },
   {
+    accessorKey: 'thongTinCap',
     id: 'thongTinCap',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title='Thông tỉn cáp' />

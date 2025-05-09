@@ -62,13 +62,12 @@ const formSchema = z.object({
   tramCo: z.array(z.string()).refine((value) => value.some((item) => item), {
     message: 'Vui lòng chọn ít nhất sóng trạm.',
   }),
-  loaiTru: z.string().min(1, { message: 'Loại trụ không được trống.' }),
-  chuDauTu: z.string().min(1, { message: 'Chủ đầu tư không được trống.' }),
-  phongMay: z.string().min(1, { message: 'Phòng máy không được trống.' }),
-  maPE: z.string().min(1, { message: 'Mã PE không được trống.' }),
+  loaiTru: z.string(),
+  chuDauTu: z.string(),
+  phongMay: z.string(),
+  maPE: z.string(),
   toaDo: z
     .string()
-    .min(1, { message: 'Tọa độ không được trống.' })
     .url({ message: 'Tọa độ phải là một đường dẫn hợp lệ.' }),
   hinhAnh: z.any(),
   isEdit: z.boolean(),

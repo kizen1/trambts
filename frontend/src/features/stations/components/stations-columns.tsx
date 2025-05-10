@@ -272,7 +272,7 @@ export const columns: ColumnDef<Station>[] = [
             {hinhAnh.map((image, index) => (
               <DialogTrigger asChild key={index}>
                 <img
-                  src={import.meta.env.VITE_APP_BACKEND_HOST + image.path}
+                  src={import.meta.env.VITE_BACKEND_PORT + image.path}
                   alt={`Image ${image.filename}`}
                   className='h-14 w-14 cursor-pointer rounded object-cover hover:opacity-50'
                   onClick={() => setSelectedImage(image.path)}

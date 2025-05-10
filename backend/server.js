@@ -39,7 +39,8 @@ app.use(errorHandler);
 
 // Start the server
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
+
+app.listen(PORT, "0.0.0.0", () => {
   console.log(`Server is running on port ${PORT}`);
   console.log(`Data directory: ${config.dataDir}`);
   console.log(`Uploads directory: ${config.uploadsDir}`);

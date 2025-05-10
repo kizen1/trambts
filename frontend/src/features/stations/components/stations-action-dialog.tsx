@@ -429,9 +429,7 @@ export function StationsActionDialog({
                             <DialogTrigger asChild>
                               <div className='relative'>
                                 <img
-                                  src={
-                                    import.meta.env.VITE_APP_BACKEND_HOST + path
-                                  }
+                                  src={import.meta.env.VITE_BACKEND_PORT + path}
                                   alt={`Image ${filename}`}
                                   className='h-20 w-full cursor-pointer rounded object-cover hover:opacity-50 lg:h-32'
                                   onClick={() => setSelectedImage(path)}

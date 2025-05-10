@@ -39,7 +39,14 @@ export function useCreateStation() {
       // Optionally add the new station to the cache
       queryClient.setQueryData(stationKeys.details(newStation.id), newStation)
 
-      toast.success('Station created successfully!')
+      toast.success('Tạo mới trạm thành công!', {
+        duration: 2000,
+      })
+    },
+    onError: (_error, _variables, _context) => {
+      toast.error('Tạo mới trạm thất bại!', {
+        duration: 2000,
+      })
     },
   })
 }
@@ -55,7 +62,14 @@ export function useUpdateStation(id: string) {
       queryClient.invalidateQueries({ queryKey: stationKeys.all })
       queryClient.setQueryData(stationKeys.details(id), updatedStation)
 
-      toast.success('Station updated successfully!')
+      toast.success('Cập nhật trạm thành công!', {
+        duration: 2000,
+      })
+    },
+    onError: (_error, _variables, _context) => {
+      toast.error('Cập nhật trạm thất bại!', {
+        duration: 2000,
+      })
     },
   })
 }
@@ -71,7 +85,14 @@ export function useDeleteStation() {
       queryClient.removeQueries({ queryKey: stationKeys.details(id) })
       queryClient.invalidateQueries({ queryKey: stationKeys.all })
 
-      toast.success('Station deleted successfully!')
+      toast.success('Xóa trạm thành công!', {
+        duration: 2000,
+      })
+    },
+    onError: (_error, _variables, _context) => {
+      toast.error('Xóa trạm thất bại!', {
+        duration: 2000,
+      })
     },
   })
 }
@@ -90,7 +111,14 @@ export function useDeleteStationImage(stationId: string) {
       queryClient.invalidateQueries({
         queryKey: stationKeys.details(stationId),
       })
-      toast.success('Image deleted successfully!')
+      toast.success('Xóa ảnh thành công!', {
+        duration: 2000,
+      })
+    },
+    onError: (_error, _variables, _context) => {
+      toast.error('Xóa ảnh thất bại!', {
+        duration: 2000,
+      })
     },
   })
 }

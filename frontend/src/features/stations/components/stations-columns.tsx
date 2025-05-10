@@ -59,13 +59,10 @@ export const columns: ColumnDef<Station>[] = [
     ),
     cell: ({ row }) => {
       return (
-        <LongText className='max-w-36'>
-          {row.getValue('nhanVienQuanLy')}
-        </LongText>
+        <LongText className='max-w-36'>{row.original.nhanVienQuanLy}</LongText>
       )
     },
     meta: { className: 'w-36' },
-    enableSorting: false,
   },
   {
     id: 'diaChi',
@@ -107,6 +104,7 @@ export const columns: ColumnDef<Station>[] = [
       )
     },
     meta: { className: 'w-36' },
+    enableSorting: false,
   },
   {
     id: 'ghiChu',
@@ -271,13 +269,13 @@ export const columns: ColumnDef<Station>[] = [
       return (
         <Dialog onOpenChange={(open) => !open && setSelectedImage(null)}>
           <div className='grid w-48 grid-cols-3 gap-2'>
-            {hinhAnh.map((item, index) => (
+            {hinhAnh.map((image, index) => (
               <DialogTrigger asChild key={index}>
                 <img
-                  src={item.path}
-                  alt={`Image ${index}`}
+                  src={import.meta.env.VITE_APP_BACKEND_HOST + image.path}
+                  alt={`Image ${image.filename}`}
                   className='h-14 w-14 cursor-pointer rounded object-cover hover:opacity-50'
-                  onClick={() => setSelectedImage(item.path)}
+                  onClick={() => setSelectedImage(image.path)}
                 />
               </DialogTrigger>
             ))}
@@ -314,15 +312,4 @@ export const columns: ColumnDef<Station>[] = [
       ),
     },
   },
-  // {
-  //   id: 'actions',
-  //   cell: DataTableRowActions,
-  //   meta: {
-  //     className: cn(
-  //       'drop-shadow-[0_1px_2px_rgb(0_0_0_/_0.1)] dark:drop-shadow-[0_1px_2px_rgb(255_255_255_/_0.1)] lg:drop-shadow-none',
-  //       'bg-background transition-colors duration-200 group-hover/row:bg-muted group-data-[state=selected]/row:bg-muted',
-  //       'sticky left-0 md:table-cell'
-  //     ),
-  //   },
-  // },
 ]

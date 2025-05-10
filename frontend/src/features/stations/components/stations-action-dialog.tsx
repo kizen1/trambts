@@ -39,6 +39,7 @@ import { Station } from '../data/schema'
 import {
   useCreateStation,
   useDeleteStationImage,
+  useStations,
   useUpdateStation,
 } from '../hooks/stations-hooks'
 
@@ -66,9 +67,7 @@ const formSchema = z.object({
   chuDauTu: z.string(),
   phongMay: z.string(),
   maPE: z.string(),
-  toaDo: z
-    .string()
-    .url({ message: 'Tọa độ phải là một đường dẫn hợp lệ.' }),
+  toaDo: z.string().url({ message: 'Tọa độ phải là một đường dẫn hợp lệ.' }),
   hinhAnh: z.any(),
   isEdit: z.boolean(),
 })
@@ -90,6 +89,7 @@ export function StationsActionDialog({
   const [images, setImages] = useState(currentRow?.hinhAnh ?? [])
 
   // Mutations
+  const { data: stationList } = useStations()
   const createStation = useCreateStation()
   const updateStation = isEdit ? useUpdateStation(currentRow?.id) : null
   const deleteImage = useDeleteStationImage(currentRow?.id)
@@ -129,7 +129,6 @@ export function StationsActionDialog({
     }
 
     form.reset()
-    // showSubmittedData(values)
     onOpenChange(false)
   }
 
@@ -167,7 +166,29 @@ export function StationsActionDialog({
                   <FormItem className='items-center space-y-0 gap-x-4 gap-y-1'>
                     <FormLabel>Mã Trạm</FormLabel>
                     <FormControl>
-                      <Input placeholder='' {...field} />
+                      <Input
+                        placeholder=''
+                        {...field}
+                        onBlur={(e) => {
+                          const value = e.target.value.trim()
+                          field.onBlur()
+
+                          // Only check when creating, not editing
+                          if (
+                            !isEdit &&
+                            stationList?.some(
+                              (station) => station.maTram === value
+                            )
+                          ) {
+                            form.setError('maTram', {
+                              type: 'manual',
+                              message: 'Mã trạm đã tồn tại.',
+                            })
+                          } else {
+                            form.clearErrors('maTram')
+                          }
+                        }}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -373,11 +394,14 @@ export function StationsActionDialog({
                       <FormControl>
                         <Input placeholder='' {...field} />
                       </FormControl>
-                      <Button type='button' asChild>
-                        <a href={currentRow?.toaDo} target='_blank'>
-                          Truy cập
-                        </a>
-                      </Button>
+
+                      {isEdit && (
+                        <Button type='button' asChild>
+                          <a href={currentRow?.toaDo} target='_blank'>
+                            Truy cập
+                          </a>
+                        </Button>
+                      )}
                     </div>
                     <FormMessage />
                   </FormItem>
@@ -405,8 +429,10 @@ export function StationsActionDialog({
                             <DialogTrigger asChild>
                               <div className='relative'>
                                 <img
-                                  src={path}
-                                  alt={`Image ${index}`}
+                                  src={
+                                    import.meta.env.VITE_APP_BACKEND_HOST + path
+                                  }
+                                  alt={`Image ${filename}`}
                                   className='h-20 w-full cursor-pointer rounded object-cover hover:opacity-50 lg:h-32'
                                   onClick={() => setSelectedImage(path)}
                                 />

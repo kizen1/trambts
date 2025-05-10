@@ -20,17 +20,17 @@ export const sidebarData: SidebarData = {
   },
   teams: [
     {
-      name: 'VNPT',
+      name: 'Thủ Đức',
       logo: Command,
       plan: 'Trạm BTS',
     },
     {
-      name: 'Acme Inc',
+      name: 'Quận 1',
       logo: GalleryVerticalEnd,
       plan: 'Enterprise',
     },
     {
-      name: 'Acme Corp.',
+      name: 'Anh Hùng',
       logo: AudioWaveform,
       plan: 'Startup',
     },

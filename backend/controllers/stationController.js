@@ -4,11 +4,20 @@ import { join } from "path";
 import config from "../config.js";
 import { getStations, saveStations } from "../utils/dataUtils.js";
 
+function getImagePath(maTram, filename) {
+  return `/uploads/${maTram}/${filename}`;
+}
+
 // Get all stations
 export const getAllStations = async (req, res) => {
   try {
     const stations = await getStations();
-    res.json(stations);
+
+    const sortedStations = stations.sort(
+      (a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)
+    );
+
+    res.json(sortedStations);
   } catch (error) {
     console.error("Error fetching stations:", error);
     res.status(500).json({ error: "Failed to retrieve stations" });
@@ -37,12 +46,15 @@ export const createStation = async (req, res) => {
   try {
     const stations = await getStations();
 
-    // Get uploaded files info
+    // Get uploaded files info with maTram-specific paths
     const uploadedFiles = req.files
-      ? req.files.map((file) => ({
-          filename: file.filename,
-          path: `http://localhost:3000/uploads/${file.filename}`,
-        }))
+      ? req.files.map((file) => {
+          const filename = file.filename;
+          return {
+            filename,
+            path: getImagePath(req.body.maTram, filename),
+          };
+        })
       : [];
 
     const newStation = {
@@ -85,22 +97,77 @@ export const updateStation = async (req, res) => {
       return res.status(404).json({ error: "Station not found" });
     }
 
-    // Get uploaded files info
+    const oldStation = stations[stationIndex];
+    const newMaTram = req.body.maTram || oldStation.maTram;
+    const maTramChanged = newMaTram !== oldStation.maTram;
+
+    // Get uploaded files info with maTram-specific paths
     const uploadedFiles = req.files
-      ? req.files.map((file) => ({
-          filename: file.filename,
-          path: `http://localhost:3000/uploads/${file.filename}`,
-        }))
+      ? req.files.map((file) => {
+          const filename = file.filename;
+          return {
+            filename,
+            path: getImagePath(newMaTram, filename),
+          };
+        })
       : [];
 
+    // Handle existing images
+    let hinhAnh = oldStation.hinhAnh || [];
+
+    // If maTram changed, we need to move existing images to the new directory
+    if (maTramChanged && hinhAnh.length > 0) {
+      const newUploadDir = join(config.uploadsDir, newMaTram);
+
+      // Create the new directory if it doesn't exist
+      if (!existsSync(newUploadDir)) {
+        await fs.mkdir(newUploadDir, { recursive: true });
+      }
+
+      // Move each image to the new directory and update paths
+      for (const img of hinhAnh) {
+        const oldFilePath = join(
+          config.uploadsDir,
+          oldStation.maTram,
+          img.filename
+        );
+        const newFilePath = join(newUploadDir, img.filename);
+
+        try {
+          await fs.copyFile(oldFilePath, newFilePath);
+          await fs.unlink(oldFilePath);
+
+          // Update the path in the image object
+          img.path = getImagePath(newMaTram, img.filename);
+        } catch (err) {
+          console.error(`Failed to move image ${img.filename}:`, err);
+        }
+      }
+
+      // Try to remove the old directory if it's empty
+      try {
+        const oldUploadDir = join(config.uploadsDir, oldStation.maTram);
+        const files = await fs.readdir(oldUploadDir);
+        if (files.length === 0) {
+          await fs.rmdir(oldUploadDir);
+        }
+      } catch (err) {
+        console.error("Failed to remove old directory:", err);
+      }
+    }
+
     // Combine existing images with new uploads if needed
-    let hinhAnh = stations[stationIndex].hinhAnh || [];
     if (uploadedFiles.length > 0) {
       if (req.body.keepExistingImages === "false") {
         // Delete old image files
         for (const img of hinhAnh) {
           try {
-            await fs.unlink(join(config.uploadsDir, img.filename));
+            const oldFilePath = join(
+              config.uploadsDir,
+              oldStation.maTram,
+              img.filename
+            );
+            await fs.unlink(oldFilePath);
           } catch (err) {
             console.error("Failed to delete image:", err);
           }
@@ -112,22 +179,19 @@ export const updateStation = async (req, res) => {
     }
 
     const updatedStation = {
-      ...stations[stationIndex],
-      maTram: req.body.maTram || stations[stationIndex].maTram,
-      nhanVienQuanLy: req.body.nhanVienQuanLy || stations[stationIndex].nhanVienQuanLy,
-      diaChi: req.body.diaChi || stations[stationIndex].diaChi,
-      maKhoa: req.body.maKhoa || stations[stationIndex].maKhoa,
-      sdt: req.body.sdt || stations[stationIndex].sdt,
-      thongTinCap: req.body.thongTinCap || stations[stationIndex].thongTinCap,
-      ghiChu: req.body.ghiChu || stations[stationIndex].ghiChu,
-      tramCo: req.body.tramCo
-        ? JSON.parse(req.body.tramCo)
-        : stations[stationIndex].tramCo,
-      loaiTru: req.body.loaiTru || stations[stationIndex].loaiTru,
-      chuDauTu: req.body.chuDauTu || stations[stationIndex].chuDauTu,
-      phongMay: req.body.phongMay || stations[stationIndex].phongMay,
-      maPE: req.body.maPE || stations[stationIndex].maPE,
-      toaDo: req.body.toaDo || stations[stationIndex].toaDo,
+      ...oldStation,
+      maTram: newMaTram,
+      diaChi: req.body.diaChi || oldStation.diaChi,
+      maKhoa: req.body.maKhoa || oldStation.maKhoa,
+      sdt: req.body.sdt || oldStation.sdt,
+      thongTinCap: req.body.thongTinCap || oldStation.thongTinCap,
+      ghiChu: req.body.ghiChu || oldStation.ghiChu,
+      tramCo: req.body.tramCo ? JSON.parse(req.body.tramCo) : oldStation.tramCo,
+      loaiTru: req.body.loaiTru || oldStation.loaiTru,
+      chuDauTu: req.body.chuDauTu || oldStation.chuDauTu,
+      phongMay: req.body.phongMay || oldStation.phongMay,
+      maPE: req.body.maPE || oldStation.maPE,
+      toaDo: req.body.toaDo || oldStation.toaDo,
       hinhAnh,
       updatedAt: new Date().toISOString(),
     };
@@ -155,12 +219,24 @@ export const deleteStation = async (req, res) => {
     // Delete image files
     const station = stations[stationIndex];
     if (station.hinhAnh && station.hinhAnh.length > 0) {
+      const stationUploadDir = join(config.uploadsDir, station.maTram);
+
       for (const img of station.hinhAnh) {
         try {
-          await fs.unlink(join(config.uploadsDir, img.filename));
+          await fs.unlink(join(stationUploadDir, img.filename));
         } catch (err) {
           console.error("Failed to delete image:", err);
         }
+      }
+
+      // Try to remove the directory if it's empty
+      try {
+        const files = await fs.readdir(stationUploadDir);
+        if (files.length === 0) {
+          await fs.rmdir(stationUploadDir);
+        }
+      } catch (err) {
+        console.error("Failed to remove directory:", err);
       }
     }
 
@@ -197,7 +273,11 @@ export const deleteStationImage = async (req, res) => {
     // Delete the file
     try {
       await fs.unlink(
-        join(config.uploadsDir, station.hinhAnh[imageIndex].filename)
+        join(
+          config.uploadsDir,
+          station.maTram,
+          station.hinhAnh[imageIndex].filename
+        )
       );
     } catch (err) {
       console.error("Failed to delete image file:", err);

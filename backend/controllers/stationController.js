@@ -3,6 +3,7 @@ import fs from "fs/promises";
 import { join } from "path";
 import config from "../config.js";
 import { getStations, saveStations } from "../utils/dataUtils.js";
+import { existsSync } from "fs";
 
 function getImagePath(maTram, filename) {
   return `/uploads/${maTram}/${filename}`;
@@ -181,6 +182,7 @@ export const updateStation = async (req, res) => {
     const updatedStation = {
       ...oldStation,
       maTram: newMaTram,
+      nhanVienQuanLy: req.body.nhanVienQuanLy || oldStation.nhanVienQuanLy,
       diaChi: req.body.diaChi || oldStation.diaChi,
       maKhoa: req.body.maKhoa || oldStation.maKhoa,
       sdt: req.body.sdt || oldStation.sdt,

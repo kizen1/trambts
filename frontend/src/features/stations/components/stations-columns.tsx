@@ -290,7 +290,7 @@ export const columns: ColumnDef<Station>[] = [
             </VisuallyHidden>
             {selectedImage && (
               <img
-                src={selectedImage}
+                src={import.meta.env.VITE_BACKEND_PORT + selectedImage}
                 alt={selectedImage}
                 className='max-h-screen rounded'
               />

@@ -15,7 +15,7 @@ import { type SidebarData } from '../types'
 export const sidebarData: SidebarData = {
   user: {
     name: 'Nguyễn Văn Đồng',
-    email: 'nguyenvandongqn99@gmail.com',
+    email: 'dongnv.hcm@vnpt.vn',
     avatar: '/avatars/shadcn.jpg',
   },
   teams: [
@@ -25,12 +25,12 @@ export const sidebarData: SidebarData = {
       plan: 'Trạm BTS',
     },
     {
-      name: 'VNPT Quận 1',
+      name: 'VNPT A',
       logo: GalleryVerticalEnd,
       plan: 'Enterprise',
     },
     {
-      name: 'Team Anh Hùng',
+      name: 'VNPT B',
       logo: AudioWaveform,
       plan: 'Startup',
     },

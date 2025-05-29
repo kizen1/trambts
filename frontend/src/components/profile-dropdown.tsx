@@ -28,7 +28,7 @@ export function ProfileDropdown() {
           <div className='flex flex-col space-y-1'>
             <p className='text-sm leading-none font-medium'>Nguyễn Văn Đồng</p>
             <p className='text-muted-foreground text-xs leading-none'>
-              nguyenvandongqn99@gmail.com
+              dongnv.hcm@vnpt.vn
             </p>
           </div>
         </DropdownMenuLabel>

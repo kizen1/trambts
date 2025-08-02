@@ -25,7 +25,7 @@ const formSchema = z.object({
     .string()
     .min(1, { message: 'Please enter your email' })
     .email({ message: 'Invalid email address' }),
-  password: z
+  matKhau: z
     .string()
     .min(1, {
       message: 'Please enter your password',
@@ -44,7 +44,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: '',
-      password: '',
+      matKhau: '',
     },
   })
 
@@ -74,7 +74,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
         />
         <FormField
           control={form.control}
-          name='password'
+          name='matKhau'
           render={({ field }) => (
             <FormItem className='relative'>
               <FormLabel>Password</FormLabel>

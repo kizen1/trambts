@@ -91,7 +91,15 @@ export const login = async (req, res) => {
     // Create token
 
     const token = jwt.sign(
-      { id: user.id, email: user.email, vaiTro: user.vaiTro },
+      {
+        id: user.id,
+        hoTen: user.hoTen,
+        email: user.email,
+        sdt: user.sdt,
+        diaChi: user.diaChi,
+        vaiTro: user.vaiTro,
+        ghiChu: user.ghiChu,
+      },
       config.jwtSecret,
       { expiresIn: "1d" }
     );

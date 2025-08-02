@@ -4,6 +4,7 @@ interface User {
   name: string
   email: string
   avatar: string
+  fallback: string
 }
 
 interface Team {

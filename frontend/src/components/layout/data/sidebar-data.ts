@@ -9,14 +9,19 @@ import {
   IconUserCog,
   IconUsers,
 } from '@tabler/icons-react'
+import { getLastTwoInitials } from '@/helpers'
 import { AudioWaveform, Command, GalleryVerticalEnd } from 'lucide-react'
+import { getCurrentUser } from '@/features/auth/helpers/auth'
 import { type SidebarData } from '../types'
+
+const currentUser = getCurrentUser()
 
 export const sidebarData: SidebarData = {
   user: {
-    name: 'Nguyễn Văn Đồng',
-    email: 'dongnv.hcm@vnpt.vn',
-    avatar: '/avatars/shadcn.jpg',
+    name: currentUser.hoTen,
+    email: currentUser.email,
+    avatar: '/images/shadcn-admin.jpg',
+    fallback: getLastTwoInitials(currentUser.hoTen),
   },
   teams: [
     {

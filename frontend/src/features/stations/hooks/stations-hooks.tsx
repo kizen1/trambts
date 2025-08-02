@@ -39,37 +39,34 @@ export function useCreateStation() {
       // Optionally add the new station to the cache
       queryClient.setQueryData(stationKeys.details(newStation.id), newStation)
 
-      toast.success('Tạo mới trạm thành công!', {
-        duration: 2000,
-      })
+      toast.success('Tạo mới trạm thành công!')
     },
     onError: (_error, _variables, _context) => {
-      toast.error('Tạo mới trạm thất bại!', {
-        duration: 2000,
-      })
+      toast.error('Tạo mới trạm thất bại!')
     },
   })
 }
 
 // Hook to update a station
-export function useUpdateStation(id: string) {
+export function useUpdateStation(id?: string) {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: (data: Partial<StationForm>) => stationService.update(id, data),
+    mutationFn: (data: Partial<StationForm>) => {
+      if (!id) throw new Error('Missing user ID')
+      return stationService.update(id, data)
+    },
     onSuccess: (updatedStation) => {
+      if (!id) throw new Error('Missing user ID')
+
       // Update both the list and the individual station in the cache
       queryClient.invalidateQueries({ queryKey: stationKeys.all })
       queryClient.setQueryData(stationKeys.details(id), updatedStation)
 
-      toast.success('Cập nhật trạm thành công!', {
-        duration: 2000,
-      })
+      toast.success('Cập nhật trạm thành công!')
     },
     onError: (_error, _variables, _context) => {
-      toast.error('Cập nhật trạm thất bại!', {
-        duration: 2000,
-      })
+      toast.error('Cập nhật trạm thất bại!')
     },
   })
 }
@@ -85,40 +82,36 @@ export function useDeleteStation() {
       queryClient.removeQueries({ queryKey: stationKeys.details(id) })
       queryClient.invalidateQueries({ queryKey: stationKeys.all })
 
-      toast.success('Xóa trạm thành công!', {
-        duration: 2000,
-      })
+      toast.success('Xóa trạm thành công!')
     },
     onError: (_error, _variables, _context) => {
-      toast.error('Xóa trạm thất bại!', {
-        duration: 2000,
-      })
+      toast.error('Xóa trạm thất bại!')
     },
   })
 }
 
 // Hook to delete a station image
-export function useDeleteStationImage(stationId: string) {
+export function useDeleteStationImage(stationId?: string) {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: (filename: string) =>
-      stationService.deleteImage(stationId, filename),
+    mutationFn: (filename: string) => {
+      if (!stationId) throw new Error('Missing user ID')
+      return stationService.deleteImage(stationId, filename)
+    },
     onSuccess: (updatedStation) => {
+      if (!stationId) throw new Error('Missing user ID')
+
       // Invalidate the specific station to refetch with updated images
       queryClient.invalidateQueries({ queryKey: stationKeys.all })
       queryClient.setQueryData(stationKeys.details(stationId), updatedStation)
       queryClient.invalidateQueries({
         queryKey: stationKeys.details(stationId),
       })
-      toast.success('Xóa ảnh thành công!', {
-        duration: 2000,
-      })
+      toast.success('Xóa ảnh thành công!')
     },
     onError: (_error, _variables, _context) => {
-      toast.error('Xóa ảnh thất bại!', {
-        duration: 2000,
-      })
+      toast.error('Xóa ảnh thất bại!')
     },
   })
 }

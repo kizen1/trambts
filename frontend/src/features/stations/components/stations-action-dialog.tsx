@@ -91,7 +91,7 @@ export function StationsActionDialog({
   // Mutations
   const { data: stationList } = useStations()
   const createStation = useCreateStation()
-  const updateStation = isEdit ? useUpdateStation(currentRow?.id) : null
+  const updateStation = useUpdateStation(currentRow?.id)
   const deleteImage = useDeleteStationImage(currentRow?.id)
 
   const form = useForm<StationForm>({
@@ -122,7 +122,7 @@ export function StationsActionDialog({
   })
 
   const onSubmit = (values: StationForm) => {
-    if (isEdit && updateStation) {
+    if (isEdit) {
       updateStation.mutate(values)
     } else {
       createStation.mutate(values)
@@ -421,7 +421,7 @@ export function StationsActionDialog({
                       <div className='grid grid-cols-3 gap-2'>
                         {images.map(({ filename, path }, index) => (
                           <Dialog
-                            key={filename}
+                            key={filename + index}
                             onOpenChange={(open) =>
                               !open && setSelectedImage(null)
                             }

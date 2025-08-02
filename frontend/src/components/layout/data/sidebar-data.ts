@@ -2,12 +2,12 @@ import {
   IconBrowserCheck,
   IconBuildingBroadcastTower,
   IconHelp,
-  IconLayoutDashboard,
   IconNotification,
   IconPalette,
   IconSettings,
   IconTool,
   IconUserCog,
+  IconUsers,
 } from '@tabler/icons-react'
 import { AudioWaveform, Command, GalleryVerticalEnd } from 'lucide-react'
 import { type SidebarData } from '../types'
@@ -60,11 +60,11 @@ export const sidebarData: SidebarData = {
         //   badge: '3',
         //   icon: IconMessages,
         // },
-        // {
-        //   title: 'Users',
-        //   url: '/users',
-        //   icon: IconUsers,
-        // },
+        {
+          title: 'Người dùng',
+          url: '/users',
+          icon: IconUsers,
+        },
         {
           title: 'Trạm BTS',
           url: '/stations',

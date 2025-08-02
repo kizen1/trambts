@@ -6,6 +6,8 @@ import { existsSync, mkdirSync } from "fs";
 
 // Import routes and middleware
 import stationRoutes from "./routers/stationRoutes.js";
+import authRoutes from "./routers/authRoutes.js";
+import userRoutes from "./routers/userRoutes.js";
 import { errorHandler } from "./middleware/errorMiddleware.js";
 import config from "./config.js";
 
@@ -32,7 +34,9 @@ app.use(express.json());
 app.use("/uploads", express.static(config.uploadsDir));
 
 // Use routes
-app.use("/api", stationRoutes);
+app.use("/api/stations", stationRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/users", userRoutes);
 
 // Error handling middleware (must be after routes)
 app.use(errorHandler);

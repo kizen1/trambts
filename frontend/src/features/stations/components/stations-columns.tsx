@@ -19,6 +19,7 @@ import {
   phongMayTypes,
   tramCoBadge,
 } from '../data/data'
+import { TramCoStatus } from '../data/schema'
 import { Station } from '../types'
 import { DataTableColumnHeader } from './data-table-column-header'
 import { DataTableRowActions } from './data-table-row-actions'
@@ -126,7 +127,7 @@ export const columns: ColumnDef<Station>[] = [
 
       return (
         <div className='grid w-18 grid-cols-2 gap-2'>
-          {tramCo?.map((item) => (
+          {tramCo?.map((item: TramCoStatus) => (
             <Badge
               key={item}
               variant='outline'

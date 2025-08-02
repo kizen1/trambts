@@ -1,4 +1,4 @@
-import { HTMLAttributes, useState } from 'react'
+import { HTMLAttributes, useEffect } from 'react'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -15,6 +15,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { PasswordInput } from '@/components/password-input'
+import { useRegister } from '../../hooks/useAuth'
 
 type SignUpFormProps = HTMLAttributes<HTMLFormElement>
 
@@ -39,8 +40,10 @@ const formSchema = z
     path: ['confirmPassword'],
   })
 
+export type SignUpFormType = z.infer<typeof formSchema>
+
 export function SignUpForm({ className, ...props }: SignUpFormProps) {
-  const [isLoading, setIsLoading] = useState(false)
+  const { mutate: register, isPending, isSuccess } = useRegister()
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -51,14 +54,14 @@ export function SignUpForm({ className, ...props }: SignUpFormProps) {
     },
   })
 
-  function onSubmit(data: z.infer<typeof formSchema>) {
-    setIsLoading(true)
-    // eslint-disable-next-line no-console
-    console.log(data)
+  useEffect(() => {
+    if (isSuccess) {
+      form.reset()
+    }
+  }, [isSuccess, form])
 
-    setTimeout(() => {
-      setIsLoading(false)
-    }, 3000)
+  function onSubmit(formData: z.infer<typeof formSchema>) {
+    register(formData)
   }
 
   return (
@@ -107,7 +110,7 @@ export function SignUpForm({ className, ...props }: SignUpFormProps) {
             </FormItem>
           )}
         />
-        <Button className='mt-2' disabled={isLoading}>
+        <Button className='mt-2' disabled={isPending}>
           Create Account
         </Button>
 
@@ -127,7 +130,7 @@ export function SignUpForm({ className, ...props }: SignUpFormProps) {
             variant='outline'
             className='w-full'
             type='button'
-            disabled={isLoading}
+            disabled={isPending}
           >
             <IconBrandGithub className='h-4 w-4' /> GitHub
           </Button>
@@ -135,7 +138,7 @@ export function SignUpForm({ className, ...props }: SignUpFormProps) {
             variant='outline'
             className='w-full'
             type='button'
-            disabled={isLoading}
+            disabled={isPending}
           >
             <IconBrandFacebook className='h-4 w-4' /> Facebook
           </Button>

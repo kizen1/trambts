@@ -1,5 +1,5 @@
 import { StationForm } from '@/features/stations/components/stations-action-dialog'
-import { Station } from '@/features/stations/types'
+import { Station } from '@/features/stations/data/schema'
 import { api } from '.'
 
 export const stationService = {

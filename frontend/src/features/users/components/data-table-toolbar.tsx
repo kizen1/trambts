@@ -20,16 +20,14 @@ export function DataTableToolbar<TData>({
       <div className='flex flex-1 flex-col-reverse items-start gap-y-2 sm:flex-row sm:items-center sm:space-x-2'>
         <Input
           placeholder='Filter users...'
-          value={
-            (table.getColumn('username')?.getFilterValue() as string) ?? ''
-          }
+          value={(table.getColumn('hoTen')?.getFilterValue() as string) ?? ''}
           onChange={(event) =>
-            table.getColumn('username')?.setFilterValue(event.target.value)
+            table.getColumn('hoTen')?.setFilterValue(event.target.value)
           }
           className='h-8 w-[150px] lg:w-[250px]'
         />
         <div className='flex gap-x-2'>
-          {table.getColumn('status') && (
+          {/* {table.getColumn('status') && (
             <DataTableFacetedFilter
               column={table.getColumn('status')}
               title='Status'
@@ -40,14 +38,14 @@ export function DataTableToolbar<TData>({
                 { label: 'Suspended', value: 'suspended' },
               ]}
             />
-          )}
-          {table.getColumn('role') && (
+          )} */}
+          {/* {table.getColumn('vaiTro') && (
             <DataTableFacetedFilter
-              column={table.getColumn('role')}
+              column={table.getColumn('vaiTro')}
               title='Role'
               options={userTypes.map((t) => ({ ...t }))}
             />
-          )}
+          )} */}
         </div>
         {isFiltered && (
           <Button

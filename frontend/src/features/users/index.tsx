@@ -1,3 +1,4 @@
+import { IconLoader } from '@tabler/icons-react'
 import { Header } from '@/components/layout/header'
 import { Main } from '@/components/layout/main'
 import { ProfileDropdown } from '@/components/profile-dropdown'
@@ -8,12 +9,10 @@ import { UsersDialogs } from './components/users-dialogs'
 import { UsersPrimaryButtons } from './components/users-primary-buttons'
 import { UsersTable } from './components/users-table'
 import UsersProvider from './context/users-context'
-import { userListSchema } from './data/schema'
-import { users } from './data/users'
+import { useUsers } from './hooks/users-hooks'
 
 export default function Users() {
-  // Parse user list
-  const userList = userListSchema.parse(users)
+  const { data: userList, isLoading } = useUsers()
 
   return (
     <UsersProvider>
@@ -36,7 +35,15 @@ export default function Users() {
           <UsersPrimaryButtons />
         </div>
         <div className='-mx-4 flex-1 overflow-auto px-4 py-1 lg:flex-row lg:space-y-0 lg:space-x-12'>
-          <UsersTable data={userList} columns={columns} />
+          {isLoading ? (
+            <div className='flex items-center justify-center gap-2'>
+              <IconLoader className='h-5 w-5 animate-spin' />
+              {'  '}
+              Loading...
+            </div>
+          ) : (
+            <UsersTable data={userList || []} columns={columns} />
+          )}
         </div>
       </Main>
 

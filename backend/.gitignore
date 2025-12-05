@@ -11,12 +11,6 @@ package-lock.json
 .env.test.local
 .env.production.local
 
-# Data files
-data/
-
-# Uploads
-public/uploads/
-
 # Logs
 logs/
 *.log

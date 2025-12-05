@@ -8,6 +8,7 @@ export default {
   dataDir: join(__dirname, "data"),
   uploadsDir: join(__dirname, "public", "uploads"),
   stationsFile: join(__dirname, "data", "stations.json"),
+  usersFile: join(__dirname, "data", "users.json"),
   jwtSecret: process.env.JWT_SECRET || "supersecretkey",
   maxFileSize: 5 * 1024 * 1024, // 5MB limit
   maxFileUploads: 10,

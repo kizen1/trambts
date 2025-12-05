@@ -22,12 +22,12 @@ const saveUsers = async (users) => {
 
 export const register = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { email, matKhau } = req.body;
     const users = await readUsers();
 
     const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
-    if (!email || !password) {
+    if (!email || !matKhau) {
       return res.status(400).json({ error: "Email and password are required" });
     }
 
@@ -39,11 +39,11 @@ export const register = async (req, res) => {
       return res.status(400).json({ error: "Email already exists" });
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(matKhau, 10);
     const newUser = {
       id: uuidv4(),
       email,
-      password: hashedPassword,
+      matKhau: hashedPassword,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     };
@@ -89,7 +89,6 @@ export const login = async (req, res) => {
     }
 
     // Create token
-
     const token = jwt.sign(
       {
         id: user.id,
@@ -100,8 +99,8 @@ export const login = async (req, res) => {
         vaiTro: user.vaiTro,
         ghiChu: user.ghiChu,
       },
-      config.jwtSecret,
-      { expiresIn: "1d" }
+      config.jwtSecret
+      // { expiresIn: "1d" }
     );
 
     res.json({ message: "Login successful", token });

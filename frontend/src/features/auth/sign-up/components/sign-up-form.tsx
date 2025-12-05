@@ -2,6 +2,7 @@ import { HTMLAttributes, useEffect } from 'react'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useNavigate } from '@tanstack/react-router'
 import { IconBrandFacebook, IconBrandGithub } from '@tabler/icons-react'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
@@ -25,7 +26,7 @@ const formSchema = z
       .string()
       .min(1, { message: 'Please enter your email' })
       .email({ message: 'Invalid email address' }),
-    password: z
+    matKhau: z
       .string()
       .min(1, {
         message: 'Please enter your password',
@@ -35,7 +36,7 @@ const formSchema = z
       }),
     confirmPassword: z.string(),
   })
-  .refine((data) => data.password === data.confirmPassword, {
+  .refine((data) => data.matKhau === data.confirmPassword, {
     message: "Passwords don't match.",
     path: ['confirmPassword'],
   })
@@ -44,12 +45,13 @@ export type SignUpFormType = z.infer<typeof formSchema>
 
 export function SignUpForm({ className, ...props }: SignUpFormProps) {
   const { mutate: register, isPending, isSuccess } = useRegister()
+  const navigate = useNavigate()
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: '',
-      password: '',
+      matKhau: '',
       confirmPassword: '',
     },
   })
@@ -57,6 +59,7 @@ export function SignUpForm({ className, ...props }: SignUpFormProps) {
   useEffect(() => {
     if (isSuccess) {
       form.reset()
+      navigate({ to: '/sign-in' })
     }
   }, [isSuccess, form])
 
@@ -86,7 +89,7 @@ export function SignUpForm({ className, ...props }: SignUpFormProps) {
         />
         <FormField
           control={form.control}
-          name='password'
+          name='matKhau'
           render={({ field }) => (
             <FormItem>
               <FormLabel>Password</FormLabel>

@@ -117,15 +117,17 @@ export function UsersActionDialog({ currentRow, open, onOpenChange }: Props) {
   })
 
   // Mutations
-  const createUser = useCreateUser()
-  const updateUser = useUpdateUser(currentRow?.id)
+  const { mutate: createUser, isPending: isCreatePending } = useCreateUser()
+  const { mutate: updateUser, isPending: isUpdatePending } = useUpdateUser(
+    currentRow?.id
+  )
 
   const onSubmit = (values: UserPayload) => {
     const { xacNhanMatKhau, isEdit, ...payload } = values
     if (isEdit) {
-      updateUser.mutate(payload)
+      updateUser(payload)
     } else {
-      createUser.mutate(payload)
+      createUser(payload)
     }
 
     form.reset()
@@ -144,9 +146,11 @@ export function UsersActionDialog({ currentRow, open, onOpenChange }: Props) {
     >
       <DialogContent className='sm:max-w-lg'>
         <DialogHeader className='text-left'>
-          <DialogTitle>{isEdit ? 'Edit User' : 'Add New User'}</DialogTitle>
+          <DialogTitle>
+            {isEdit ? 'Sửa người dùng' : 'Thêm người dùng mới'}
+          </DialogTitle>
           <DialogDescription>
-            {isEdit ? 'Update the user here. ' : 'Create new user here. '}
+            {isEdit ? 'Sửa thông tin ở đây. ' : 'Tạo mới thông tin ở đây. '}
             Click save when you&apos;re done.
           </DialogDescription>
         </DialogHeader>
@@ -186,7 +190,7 @@ export function UsersActionDialog({ currentRow, open, onOpenChange }: Props) {
                     </FormLabel>
                     <FormControl>
                       <Input
-                        placeholder='dong.le@gmail.com'
+                        placeholder='vandong@gmail.com'
                         className='col-span-4'
                         {...field}
                       />
@@ -206,7 +210,7 @@ export function UsersActionDialog({ currentRow, open, onOpenChange }: Props) {
                     <SelectDropdown
                       defaultValue={field.value}
                       onValueChange={field.onChange}
-                      placeholder='Select a role'
+                      placeholder='Chọn vai trò'
                       className='col-span-4 w-full'
                       items={userTypes.map(({ label, value }) => ({
                         label,
@@ -246,7 +250,7 @@ export function UsersActionDialog({ currentRow, open, onOpenChange }: Props) {
                     </FormLabel>
                     <FormControl>
                       <Input
-                        placeholder='123 Pham Văn Đồng, Thủ Đức'
+                        placeholder='123 Phạm Văn Đồng, Thủ Đức'
                         className='col-span-4'
                         {...field}
                       />
@@ -309,8 +313,12 @@ export function UsersActionDialog({ currentRow, open, onOpenChange }: Props) {
           </Form>
         </div>
         <DialogFooter>
-          <Button type='submit' form='user-form'>
-            Save changes
+          <Button
+            type='submit'
+            form='user-form'
+            disabled={isCreatePending || isUpdatePending}
+          >
+            Lưu lại
           </Button>
         </DialogFooter>
       </DialogContent>

@@ -15,6 +15,7 @@ import { getCurrentUser } from '@/features/auth/helpers/auth'
 import { type SidebarData } from '../types'
 
 const currentUser = getCurrentUser()
+console.log(currentUser)
 
 export const sidebarData: SidebarData = {
   user: {

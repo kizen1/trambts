@@ -21,7 +21,12 @@ const saveUsers = async (users) => {
 
 export const getAllUsers = async (req, res) => {
   const users = await readUsers();
-  res.json(users.map(({ password, ...u }) => u));
+
+  const sortedUsers = users.sort(
+    (a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)
+  );
+
+  res.json(sortedUsers);
 };
 
 export const getUserById = async (req, res) => {

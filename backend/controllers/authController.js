@@ -28,15 +28,17 @@ export const register = async (req, res) => {
     const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
     if (!email || !matKhau) {
-      return res.status(400).json({ error: "Email and password are required" });
+      return res
+        .status(400)
+        .json({ error: "Email và mật khẩu không được trống" });
     }
 
     if (!isValidEmail(email)) {
-      return res.status(400).json({ error: "Invalid email format" });
+      return res.status(400).json({ error: "Không đúng format email" });
     }
 
     if (users.find((u) => u.email === email)) {
-      return res.status(400).json({ error: "Email already exists" });
+      return res.status(400).json({ error: "Email đã tồn tại" });
     }
 
     const hashedPassword = await bcrypt.hash(matKhau, 10);
@@ -44,6 +46,7 @@ export const register = async (req, res) => {
       id: uuidv4(),
       email,
       matKhau: hashedPassword,
+      vaiTro: "member",
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     };
@@ -51,10 +54,12 @@ export const register = async (req, res) => {
     users.push(newUser);
     await saveUsers(users);
 
-    res.status(201).json({ message: "User registered", userId: newUser.id });
+    res
+      .status(201)
+      .json({ message: "User đã được đăng ký", userId: newUser.id });
   } catch (error) {
     console.error("Register error:", error);
-    res.status(500).json({ error: "Failed to register" });
+    res.status(500).json({ error: "Đăng ký thất bại" });
   }
 };
 
@@ -79,13 +84,13 @@ export const login = async (req, res) => {
       (u) => u.email.toLowerCase() === email.toLowerCase()
     );
     if (!user) {
-      return res.status(404).json({ error: "Email not registered" });
+      return res.status(404).json({ error: "Email đã được đăng ký" });
     }
 
     // Compare password
     const isPasswordCorrect = await bcrypt.compare(matKhau, user.matKhau);
     if (!isPasswordCorrect) {
-      return res.status(401).json({ error: "Incorrect password" });
+      return res.status(401).json({ error: "Không đúng mật khẩu" });
     }
 
     // Create token

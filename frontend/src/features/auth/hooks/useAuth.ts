@@ -10,8 +10,9 @@ export function useRegister() {
     onSuccess: () => {
       toast.success('Đăng ký thành công!')
     },
-    onError: () => {
-      toast.error('Đăng ký thất bại!')
+    onError: (error: AxiosError<{ error: string }>) => {
+      const message = error?.response?.data?.error || 'Đăng ký thất bại!'
+      toast.error(message)
     },
   })
 }

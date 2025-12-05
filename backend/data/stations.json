@@ -1,0 +1,244 @@
+[
+  {
+    "id": "db5db018-45db-4a79-b964-e5395d547299",
+    "maTram": "Q02001",
+    "nhanVienQuanLy": "Nguyễn Văn Đồng",
+    "diaChi": "116 Xuân Thủy, P. Thảo Điền, Q2",
+    "maKhoa": "3874",
+    "sdt": "0949110121",
+    "thongTinCap": "TDNF2010: 1-11",
+    "ghiChu": "TDNF2010: 1-24\r\n3G4G: TDNF2010: 1,2/3,4   Sw8/P3\r\n5G: TDNF2010: 3,4/5,6   Sw8/P5",
+    "tramCo": [
+      "4G",
+      "3G",
+      "5G"
+    ],
+    "loaiTru": "tuDung",
+    "chuDauTu": "vnpt",
+    "phongMay": "shelter",
+    "maPE": "PE12841485692",
+    "toaDo": "https://maps.app.goo.gl/Y62ZeMgGpzSbgc5Y6",
+    "hinhAnh": [],
+    "createdAt": "2025-05-11T08:20:09.920197Z",
+    "updatedAt": "2025-12-04T14:17:08.819Z"
+  },
+  {
+    "id": "8ddb130f-c993-4772-aeeb-28abc993e172",
+    "maTram": "Q02006",
+    "nhanVienQuanLy": "Nguyễn Tấn Hiển",
+    "diaChi": "Số 10A đường số 1, P. An Phú, Q2",
+    "maKhoa": "1111",
+    "sdt": "0912345678",
+    "thongTinCap": "CLAF02:25-36",
+    "ghiChu": "CLAF02:25-36\r\n3G4G: CLAF02: 25,26  Sw3/2",
+    "tramCo": [
+      "3G",
+      "4G"
+    ],
+    "loaiTru": "tuDung",
+    "chuDauTu": "vnpt",
+    "phongMay": "phongCaiTao",
+    "maPE": "PE12000123456",
+    "toaDo": "https://maps.app.goo.gl/u36pJTjDAAc31uJt5",
+    "hinhAnh": [
+      {
+        "filename": "1746973066190-157674610.jpg",
+        "path": "/uploads/Q02006/1746973066190-157674610.jpg"
+      },
+      {
+        "filename": "1746973066204-372122111.jpg",
+        "path": "/uploads/Q02006/1746973066204-372122111.jpg"
+      },
+      {
+        "filename": "1746973066239-552549717.jpg",
+        "path": "/uploads/Q02006/1746973066239-552549717.jpg"
+      },
+      {
+        "filename": "1746973066254-651584441.jpg",
+        "path": "/uploads/Q02006/1746973066254-651584441.jpg"
+      },
+      {
+        "filename": "1746973066264-526416979.jpg",
+        "path": "/uploads/Q02006/1746973066264-526416979.jpg"
+      },
+      {
+        "filename": "1746973066316-65829777.jpg",
+        "path": "/uploads/Q02006/1746973066316-65829777.jpg"
+      }
+    ],
+    "createdAt": "2025-05-11T14:17:46.339Z",
+    "updatedAt": "2025-05-11T14:32:44.176Z"
+  },
+  {
+    "id": "a3351b91-04b2-46bf-b664-aca02e430531",
+    "maTram": "Q02005",
+    "nhanVienQuanLy": "Nguyễn Tấn Hiển",
+    "diaChi": "Bưu điện Cát Lái, P. Cát Lái, Q2, Tp.HCM",
+    "maKhoa": "1111",
+    "sdt": "0912345678",
+    "thongTinCap": "CLAF02:49-60",
+    "ghiChu": "CLAF02:49-60\r\n2G: CLAF02: 49,50    Sw5/P2\r\n3G4G: CLAF02: 51,52    Sw10/P4",
+    "tramCo": [
+      "2G",
+      "3G",
+      "4G"
+    ],
+    "loaiTru": "tuDien",
+    "chuDauTu": "vnpt",
+    "phongMay": "phongCaiTao",
+    "maPE": "PE12000123457",
+    "toaDo": "https://maps.app.goo.gl/uNbtYz7p3nZgreNv6",
+    "hinhAnh": [
+      {
+        "filename": "1746973352270-550725876.jpg",
+        "path": "/uploads/Q02005/1746973352270-550725876.jpg"
+      },
+      {
+        "filename": "1746973352279-826736469.jpg",
+        "path": "/uploads/Q02005/1746973352279-826736469.jpg"
+      },
+      {
+        "filename": "1746973352288-246552155.jpg",
+        "path": "/uploads/Q02005/1746973352288-246552155.jpg"
+      }
+    ],
+    "createdAt": "2025-05-11T14:22:32.679Z",
+    "updatedAt": "2025-05-11T14:22:32.684Z"
+  },
+  {
+    "id": "079beb68-44d7-4c94-9711-4cf331eb80a0",
+    "maTram": "Q02002",
+    "nhanVienQuanLy": "Nguyễn Văn Đồng",
+    "diaChi": "55 Đường số 8, P. An Khánh, Q2",
+    "maKhoa": "0000",
+    "sdt": "0949110121",
+    "thongTinCap": "TTMF27: 13-24",
+    "ghiChu": "TTMF2701: 13-24\r\n2G: TTMF2701: 13,15/122,123    Sw5/8\r\n3G4G: TTMF2701: 16,17/124,125    Sw12/4\r\n5G: TTMF2701: 19,20/126,127    Sw18/8",
+    "tramCo": [
+      "2G",
+      "3G",
+      "4G",
+      "5G"
+    ],
+    "loaiTru": "dayCo",
+    "chuDauTu": "xaHoiHoa",
+    "phongMay": "tuCabinet",
+    "maPE": "PE12000485692",
+    "toaDo": "https://maps.app.goo.gl/b6qmFh6w4scKzXxL8",
+    "hinhAnh": [
+      {
+        "filename": "1746974198538-439563303.jpg",
+        "path": "/uploads/Q02002/1746974198538-439563303.jpg"
+      },
+      {
+        "filename": "1746974198547-153622914.jpg",
+        "path": "/uploads/Q02002/1746974198547-153622914.jpg"
+      },
+      {
+        "filename": "1746974198578-870655481.jpg",
+        "path": "/uploads/Q02002/1746974198578-870655481.jpg"
+      },
+      {
+        "filename": "1746974198581-641410990.jpg",
+        "path": "/uploads/Q02002/1746974198581-641410990.jpg"
+      }
+    ],
+    "createdAt": "2025-05-11T14:26:43.696Z",
+    "updatedAt": "2025-05-11T14:36:38.595Z"
+  },
+  {
+    "id": "c775b93d-eba1-42e6-9d50-44a85b31ac2c",
+    "maTram": "Q02003",
+    "nhanVienQuanLy": "Nguyễn Văn Đồng",
+    "diaChi": "Số 311-L5, P. An Phú, Q2",
+    "maKhoa": "1111",
+    "sdt": "0949110121",
+    "thongTinCap": "TTMF27: 01-13",
+    "ghiChu": "TTMF27: 01-13\r\n3G4G: TTMF27: 3,4  Sw4/P13",
+    "tramCo": [
+      "3G",
+      "4G"
+    ],
+    "loaiTru": "dayCo",
+    "chuDauTu": "viettel",
+    "phongMay": "tuCabinet",
+    "maPE": "PE12841485692",
+    "toaDo": "https://maps.app.goo.gl/gG8tTQyEnj3xv3QG9",
+    "hinhAnh": [
+      {
+        "filename": "1746974167493-351950274.jpg",
+        "path": "/uploads/Q02003/1746974167493-351950274.jpg"
+      },
+      {
+        "filename": "1746974167505-103954559.jpg",
+        "path": "/uploads/Q02003/1746974167505-103954559.jpg"
+      },
+      {
+        "filename": "1746974167514-167064478.jpg",
+        "path": "/uploads/Q02003/1746974167514-167064478.jpg"
+      },
+      {
+        "filename": "1746974167525-188077688.jpg",
+        "path": "/uploads/Q02003/1746974167525-188077688.jpg"
+      },
+      {
+        "filename": "1746974167529-769721135.jpg",
+        "path": "/uploads/Q02003/1746974167529-769721135.jpg"
+      },
+      {
+        "filename": "1746974167584-291534394.jpg",
+        "path": "/uploads/Q02003/1746974167584-291534394.jpg"
+      },
+      {
+        "filename": "1746974167591-326408608.jpg",
+        "path": "/uploads/Q02003/1746974167591-326408608.jpg"
+      }
+    ],
+    "createdAt": "2025-05-11T14:30:35.277Z",
+    "updatedAt": "2025-05-11T14:36:07.645Z"
+  },
+  {
+    "id": "7a56dc92-7605-41fa-891e-e13b14c86543",
+    "maTram": "Q02100",
+    "nhanVienQuanLy": "Dong",
+    "diaChi": "123123awdas ",
+    "maKhoa": "sadwqe",
+    "sdt": "0912345699",
+    "thongTinCap": "CLAF02:25-36, TTMF15:",
+    "ghiChu": "Tram kho ra vo, khu dan cu nhay cam",
+    "tramCo": [
+      "4G",
+      "3G",
+      "5G"
+    ],
+    "loaiTru": "monopol",
+    "chuDauTu": "xaHoiHoa",
+    "phongMay": "tuCabinet",
+    "maPE": "PE12000123456",
+    "toaDo": "https://maps.app.goo.gl/pBojefEWaFNHUXLo",
+    "hinhAnh": [
+      {
+        "filename": "1753709586478-406586128.jpg",
+        "path": "/uploads/Q02100/1753709586478-406586128.jpg"
+      },
+      {
+        "filename": "1753709586511-327756336.jpg",
+        "path": "/uploads/Q02100/1753709586511-327756336.jpg"
+      },
+      {
+        "filename": "1753709586579-565522750.jpg",
+        "path": "/uploads/Q02100/1753709586579-565522750.jpg"
+      },
+      {
+        "filename": "1753709586602-917434712.jpg",
+        "path": "/uploads/Q02100/1753709586602-917434712.jpg"
+      },
+      {
+        "filename": "1753709586754-564749946.jpg",
+        "path": "/uploads/Q02100/1753709586754-564749946.jpg"
+      }
+    ],
+    "createdAt": "2025-07-28T13:33:06.793Z",
+    "updatedAt": "2025-07-28T13:34:13.347Z"
+  }
+]

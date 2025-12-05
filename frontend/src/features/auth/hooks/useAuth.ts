@@ -25,7 +25,7 @@ export function useLogin() {
     onSuccess: (data) => {
       localStorage.setItem('token', data.token)
       toast.success('Đăng nhập thành công!')
-      navigate({ to: '/' })
+      navigate({ to: '/stations' })
     },
     onError: (error: AxiosError<{ error: string }>) => {
       const message = error?.response?.data?.error || 'Đăng nhập thất bại!'

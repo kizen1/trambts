@@ -15,14 +15,13 @@ import { getCurrentUser } from '@/features/auth/helpers/auth'
 import { type SidebarData } from '../types'
 
 const currentUser = getCurrentUser()
-console.log(currentUser)
 
 export const sidebarData: SidebarData = {
   user: {
-    name: currentUser.hoTen,
-    email: currentUser.email,
+    name: currentUser?.hoTen,
+    email: currentUser?.email,
     avatar: '/images/shadcn-admin.jpg',
-    fallback: getLastTwoInitials(currentUser.hoTen),
+    fallback: getLastTwoInitials(currentUser?.hoTen),
   },
   teams: [
     {
